@@ -2,6 +2,7 @@ package guru.springframework.msscbrewery.web.controller;
 
 import guru.springframework.msscbrewery.services.CustomerService;
 import guru.springframework.msscbrewery.web.model.CustomerDto;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +28,8 @@ public class CustomerController {
   }
 
   @PostMapping
-  public ResponseEntity<Serializable> handlePost(@RequestBody CustomerDto customerDto) {
-    CustomerDto savedDto = customerService.savedNewCustomer(customerDto);
+  public ResponseEntity<Serializable> handlePost(@Valid @RequestBody CustomerDto customerDto) {
+    CustomerDto savedDto = customerService.saveNewCustomer(customerDto);
     HttpHeaders headers = new HttpHeaders();
     // todo add hostname to url
     headers.add("Location", "/api/v1/customer/" + savedDto.getId().toString());
@@ -47,4 +48,5 @@ public class CustomerController {
     public void deleteCustomer(@PathVariable UUID customerId) {
     customerService.deleteById(customerId);
   }
+
 }
