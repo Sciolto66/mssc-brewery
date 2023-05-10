@@ -1,5 +1,8 @@
 package guru.springframework.msscbrewery.web.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,8 +19,11 @@ import java.util.UUID;
 @Builder
 public class BeerDto {
 
+    @Null
     private UUID id;
+    @NotBlank
     private String beerName;
-    private String beerStyle;
+    private BeerStyleEnum beerStyle;
+    @Positive
     private Long upc;
 }
